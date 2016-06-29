@@ -9,15 +9,15 @@ import (
 )
 
 type userInfo struct {
-	AppKey    string `json:"appkey"`
-	AppSecret string `json:"appsecret`
-	Token     string `json:"token`
-	ExpiresIn string `json:"expiresIn`
+	AppKey    string `json:"app_key"`
+	AppSecret string `json:"app_secret"`
+	Token     string `json:"token"`
+	ExpiresIn uint64 `json:"expires_in"`
 }
 
 type Config struct {
 	Idx   int         `json:"user_idx"`
-	Users []*userInfo `json"users"`
+	Users []*userInfo `json:"users"`
 }
 
 // save config

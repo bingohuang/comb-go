@@ -19,7 +19,7 @@ type CmdFlag struct {
 }
 
 var (
-	conf   *Config
+	conf *Config
 	//user   *userInfo
 	driver *CcDriver
 
@@ -28,7 +28,7 @@ var (
 )
 
 var CmdMap = map[string]Cmd{
-	"auth": {"get auth in CloudComb with app key, app secret", "", Auth, nil},
+	"auth": {"auth in CloudComb with app key, app secret", "", Auth, nil},
 	"lsco": {"list containers in CloudComb", "", LsCo, nil},
 }
 
