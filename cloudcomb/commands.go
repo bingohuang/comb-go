@@ -31,6 +31,7 @@ var (
 
 var CmdMap = map[string]Cmd{
 	"auth": {"auth in CloudComb with app key, app secret", "", Auth, nil},
+	"lsci": {"list containers' images in CloudComb", "", LsCI, nil},
 	"lsco": {"list containers in CloudComb", "", LsCo, nil},
 }
 
@@ -46,7 +47,7 @@ func Auth(args []string, opts map[string]interface{}) {
 		fmt.Scanf("%s \n", &user.AppSecret)
 	}
 
-	driver, err := NewCcDriver(user.AppKey, user.AppSecret, 10, nil)
+	driver, err := NewCCDriver(user.AppKey, user.AppSecret, 10, nil)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Auth fail. %v", err)
@@ -60,11 +61,25 @@ func Auth(args []string, opts map[string]interface{}) {
 	conf.UpdateUserInfo(user)
 	conf.Save(configFile)
 
-	fmt.Fprintf(os.Stdout, "Auth success.\n")
+	fmt.Printf("Auth success.\n")
+}
+
+func LsCI(args []string, opts map[string]interface{}) {
+	result, err := Driver.ListContainersImages()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "List containers' images fail. %v", err)
+		os.Exit(-1)
+	}
+	fmt.Printf(result)
 }
 
 func LsCo(args []string, opts map[string]interface{}) {
-
+	result, err := Driver.ListContainers()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "List containers fail. %v", err)
+		os.Exit(-1)
+	}
+	fmt.Printf(result)
 }
 
 func init() {
@@ -78,9 +93,9 @@ func init() {
 	logger := log.New(os.Stdout, "cloudcomb", 0)
 	if user != nil {
 		var err error
-		Driver, err = NewCcDriver(user.AppKey, user.AppSecret, 10, logger)
+		Driver, err = NewCCDriver(user.AppKey, user.AppSecret, 10, logger)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "failed to auth. %v\n", err)
+			fmt.Fprintf(os.Stderr, "Failed to auth. %v\n", err)
 			conf.Idx = 0
 			conf.RemoveUser()
 			conf.Save(configFile)

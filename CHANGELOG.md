@@ -5,6 +5,8 @@
 ### features
 
 1. add command `auth` 
+2. add command `lsci`
+3. add command `lsco`
 
 ## Version 0.0.2 (2016.06.29)
 

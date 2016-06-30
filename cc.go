@@ -11,7 +11,7 @@ import (
 )
 
 var cmds = []string{
-	"auth", "lsco",
+	"auth", "lsci", "lsco",
 }
 
 func main() {

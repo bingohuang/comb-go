@@ -15,7 +15,8 @@ type CcDriver struct {
 	progress *uiprogress.Progress
 }
 
-func NewCcDriver(appKey, appSecret string, conc int, logger *log.Logger) (*CcDriver, error) {
+// New CloudComb driver
+func NewCCDriver(appKey, appSecret string, conc int, logger *log.Logger) (*CcDriver, error) {
 	driver := &CcDriver{
 		cc:      cloudcomb.NewCC(appKey, appSecret),
 		maxConc: conc,
@@ -31,4 +32,22 @@ func NewCcDriver(appKey, appSecret string, conc int, logger *log.Logger) (*CcDri
 	driver.cc.ExpiresIn = expiresIn
 
 	return driver, nil
+}
+
+// List containers' images
+func (driver *CcDriver) ListContainersImages() (string, error) {
+	result, err := driver.cc.ContainersImages()
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
+
+// List containers
+func (driver *CcDriver) ListContainers() (string, error) {
+	result, err := driver.cc.Containers()
+	if err != nil {
+		return "", err
+	}
+	return result, nil
 }
