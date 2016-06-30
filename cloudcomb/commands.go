@@ -29,10 +29,23 @@ var (
 	configFile = filepath.Join(os.Getenv("HOME"), ".cc.cfg")
 )
 
+var (
+	ContainerFlags = map[string]CmdFlag{
+		"a": CmdFlag{"list all containers", "string"},
+	}
+)
+
 var CmdMap = map[string]Cmd{
 	"auth": {"auth in CloudComb with app key, app secret", "", Auth, nil},
-	"lsci": {"list containers' images in CloudComb", "", LsCI, nil},
-	"lsco": {"list containers in CloudComb", "", LsCo, nil},
+	"lsci": {"list all containers' images", "", LsCI, nil},
+	"lscs": {"list all containers' info", "", LsCs, nil},
+	"lsco": {"list specified container's info with id or name", "", LsCo, nil},
+	"flow": {"Get specified container's flow with id or name ", "", LsCo, nil},
+
+	"container": {"Container related API", "co", LsCI, ContainerFlags},
+	"cluster": {"Cluster related API", "cl", LsCI, nil},
+	"repository": {"Repository related API", "re", LsCI, nil},
+	"secretkey": {"Sercet key related API", "sk", LsCI, nil},
 }
 
 func Auth(args []string, opts map[string]interface{}) {
@@ -68,6 +81,15 @@ func LsCI(args []string, opts map[string]interface{}) {
 	result, err := Driver.ListContainersImages()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "List containers' images fail. %v", err)
+		os.Exit(-1)
+	}
+	fmt.Printf(result)
+}
+
+func LsCs(args []string, opts map[string]interface{}) {
+	result, err := Driver.ListContainers()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "List containers fail. %v", err)
 		os.Exit(-1)
 	}
 	fmt.Printf(result)

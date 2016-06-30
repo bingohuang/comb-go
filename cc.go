@@ -11,13 +11,13 @@ import (
 )
 
 var cmds = []string{
-	"auth", "lsci", "lsco",
+	"auth", "lsci", "lscs", "lsco", "flow","container",
 }
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "cc"
-	app.Usage = "a tool for manage resources in CloudComb[http://c.163.com]"
+	app.Usage = "a tool for manage resources in CloudComb[http://c.163.com], base on OpenAPI(https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%BB%8D"
 	app.Author = "Bingo Huang"
 	app.Email = "bingo@xbing.me"
 	app.Version = fmt.Sprintf("%s %s/%s %s", version.VERSION, runtime.GOOS,
