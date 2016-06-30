@@ -1,4 +1,4 @@
-package main
+package cc
 
 import (
 	"github.com/bingoHuang/cloudcomb-go-sdk/cloudcomb"

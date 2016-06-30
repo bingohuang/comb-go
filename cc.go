@@ -1,6 +1,7 @@
 package main
 
 import (
+	cc "./cloudcomb"
 	"./version"
 	"fmt"
 	"github.com/codegangsta/cli"
@@ -26,20 +27,20 @@ func main() {
 	sort.Strings(cmds)
 
 	for _, cmd := range cmds {
-		cm, exist := CmdMap[cmd]
+		cm, exist := cc.CmdMap[cmd]
 		if exist {
 			Cmd := cli.Command{
 				Name:  cmd,
 				Usage: cm.Desc,
 				Action: func(c *cli.Context) error {
-					if c.Command.FullName() != "auth" && driver == nil {
+					if c.Command.FullName() != "auth" && cc.Driver == nil {
 						fmt.Println("Auth first.")
 						os.Exit(-1)
 					}
 					opts := make(map[string]interface{})
 					for k, v := range cm.Flags {
 						if c.IsSet(k) {
-							switch v.typ {
+							switch v.Typ {
 							case "bool":
 								opts[k] = c.Bool(k)
 							case "string":
@@ -61,13 +62,13 @@ func main() {
 				Cmd.Flags = []cli.Flag{}
 				for k, v := range cm.Flags {
 					var flag cli.Flag
-					switch v.typ {
+					switch v.Typ {
 					case "bool":
-						flag = cli.BoolFlag{Name: k, Usage: v.usage}
+						flag = cli.BoolFlag{Name: k, Usage: v.Usage}
 					case "string":
-						flag = cli.StringFlag{Name: k, Usage: v.usage}
+						flag = cli.StringFlag{Name: k, Usage: v.Usage}
 					case "int":
-						flag = cli.IntFlag{Name: k, Usage: v.usage}
+						flag = cli.IntFlag{Name: k, Usage: v.Usage}
 					}
 					Cmd.Flags = append(Cmd.Flags, flag)
 				}
