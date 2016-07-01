@@ -1,10 +1,10 @@
-cloudcomb
-================
+CloudComb CLI tool: `comb`
+==========================
 
 
 ## Get Started
 
-`comb` is a tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli).
+`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli).
 We had better read `comb helper` to get more instruments.
 
 ```
