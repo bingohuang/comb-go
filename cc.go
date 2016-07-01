@@ -7,24 +7,24 @@ import (
 	"github.com/codegangsta/cli"
 	"os"
 	"runtime"
-	"sort"
 )
 
 var cmds = []string{
-	"auth", "lsci", "lscs", "lsco", "flow","container",
+	"auth", "container", "cluster", "repository", "secretkey",
 }
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "cc"
-	app.Usage = "a tool for manage resources in CloudComb[http://c.163.com], base on OpenAPI(https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%BB%8D"
+	app.Name = "comb"
+	app.Usage = `is a tool for manage resources in [CloudComb](http://c.163.com)
+		    base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli)`
 	app.Author = "Bingo Huang"
 	app.Email = "bingo@xbing.me"
 	app.Version = fmt.Sprintf("%s %s/%s %s", version.VERSION, runtime.GOOS,
 		runtime.GOARCH, runtime.Version())
 	app.Commands = make([]cli.Command, 0)
 
-	sort.Strings(cmds)
+	//sort.Strings(cmds)
 
 	for _, cmd := range cmds {
 		cm, exist := cc.CmdMap[cmd]

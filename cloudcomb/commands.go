@@ -31,23 +31,29 @@ var (
 
 var (
 	ContainerFlags = map[string]CmdFlag{
-		"a": CmdFlag{"list all containers", "string"},
+		"i": CmdFlag{"List all containers' images", "bool"},
+		"a": CmdFlag{"List all containers", "bool"},
+		"f": CmdFlag{"Get specified container's flow", "bool"},
+	}
+	ClusterFlags = map[string]CmdFlag{
+		"a": CmdFlag{"List all clusters", "bool"},
+	}
+	RepositoryFlags = map[string]CmdFlag{
+		"a": CmdFlag{"List all repositories", "bool"},
+	}
+	SecretkeyFlags = map[string]CmdFlag{
+		"a": CmdFlag{"List all secret kyes", "bool"},
+	}
+	CmdMap = map[string]Cmd{
+		"auth":       {"Auth in CloudComb with app key, app secret", "", Auth, nil},
+		"container":  {"Container related API", "co", Container, ContainerFlags},
+		"cluster":    {"Cluster related API", "cl", Cluster, ClusterFlags},
+		"repository": {"Repository related API", "re", Repository, RepositoryFlags},
+		"secretkey":  {"Sercet key related API", "se", Secretkey, SecretkeyFlags},
 	}
 )
 
-var CmdMap = map[string]Cmd{
-	"auth": {"auth in CloudComb with app key, app secret", "", Auth, nil},
-	"lsci": {"list all containers' images", "", LsCI, nil},
-	"lscs": {"list all containers' info", "", LsCs, nil},
-	"lsco": {"list specified container's info with id or name", "", LsCo, nil},
-	"flow": {"Get specified container's flow with id or name ", "", LsCo, nil},
-
-	"container": {"Container related API", "co", LsCI, ContainerFlags},
-	"cluster": {"Cluster related API", "cl", LsCI, nil},
-	"repository": {"Repository related API", "re", LsCI, nil},
-	"secretkey": {"Sercet key related API", "sk", LsCI, nil},
-}
-
+// Auth function
 func Auth(args []string, opts map[string]interface{}) {
 	user := &userInfo{}
 	if len(args) == 2 {
@@ -77,31 +83,84 @@ func Auth(args []string, opts map[string]interface{}) {
 	fmt.Printf("Auth success.\n")
 }
 
-func LsCI(args []string, opts map[string]interface{}) {
-	result, err := Driver.ListContainersImages()
+// Container function
+func Container(args []string, opts map[string]interface{}) {
+	// args
+	var containerId string
+	if len(args) > 0 {
+		containerId = args[0]
+	}
+
+	// opts
+	isAll, isImages, isFlow := false, false, false
+	if v, ok := opts["a"]; ok {
+		if v.(bool) {
+			isAll = true
+		}
+	}
+	if v, ok := opts["i"]; ok {
+		if v.(bool) {
+			isImages = true
+		}
+	}
+	if v, ok := opts["f"]; ok {
+		if v.(bool) {
+			isFlow = true
+		}
+	}
+
+	if isAll {
+		result, err := Driver.ListContainers()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "List containers fail. %v", err)
+			os.Exit(-1)
+		}
+		fmt.Printf(result)
+		return
+	}
+
+	if isImages {
+		result, err := Driver.ListContainersImages()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "List containers' images fail. %v", err)
+			os.Exit(-1)
+		}
+		fmt.Printf(result)
+		return
+	}
+
+	if isFlow {
+		result, err := Driver.ContainerFlow(containerId)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Get specified container(%s)'s flow fail. %v", containerId, err)
+			os.Exit(-1)
+		}
+		fmt.Printf(result)
+		return
+	}
+
+	result, err := Driver.ListContainer(containerId)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "List containers' images fail. %v", err)
+		fmt.Fprintf(os.Stderr, "List container(%s) fail. %v", containerId, err)
 		os.Exit(-1)
 	}
 	fmt.Printf(result)
+	return
 }
 
-func LsCs(args []string, opts map[string]interface{}) {
-	result, err := Driver.ListContainers()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "List containers fail. %v", err)
-		os.Exit(-1)
-	}
-	fmt.Printf(result)
+// Cluster function TODO
+func Cluster(args []string, opts map[string]interface{}) {
+
 }
 
-func LsCo(args []string, opts map[string]interface{}) {
-	result, err := Driver.ListContainers()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "List containers fail. %v", err)
-		os.Exit(-1)
-	}
-	fmt.Printf(result)
+// Repository function TODO
+func Repository(args []string, opts map[string]interface{}) {
+
+}
+
+// Secretkey function TODO
+func Secretkey(args []string, opts map[string]interface{}) {
+
 }
 
 func init() {

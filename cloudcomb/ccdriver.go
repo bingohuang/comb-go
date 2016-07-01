@@ -51,3 +51,21 @@ func (driver *CcDriver) ListContainers() (string, error) {
 	}
 	return result, nil
 }
+
+// List specified container
+func (driver *CcDriver) ListContainer(id string) (string, error) {
+	result, err := driver.cc.Container(id)
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
+
+// Get specified container's flow
+func (driver *CcDriver) ContainerFlow(id string) (string, error) {
+	result, err := driver.cc.ContainerFlow(id)
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
