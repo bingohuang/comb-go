@@ -4,11 +4,12 @@ CloudComb CLI tool: `comb`
 
 ## Get Started
 
-`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli).
-We had better read `comb helper` to get more instruments.
+`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-sdk). Mac, Linux, Windows supported.
+
+We had better read `comb -h` to get more instruments.
 
 ```
-☁  cloudcomb-go-cli [master] ⚡ comb
+☁  cloudcomb-go-cli [master] ⚡ comb -h
 NAME:
    comb - is a tool for manage resources in [CloudComb](http://c.163.com)
         base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli)
@@ -34,7 +35,31 @@ GLOBAL OPTIONS:
    --version, -v  print the version
 ```
 
-Then enjoy your journey with `comb` f you happen to find some command are helpful to you.
+Then enjoy your journey with `comb` if you happen to find some command are helpful to you.
+
+## Build and Install `comb`
+```
+git clone https://github.com/bingoHuang/cloudcomb-go-cli.git
+cd cloudcomb-go-cli
+export GOPATH=`pwd`
+go get -d
+go build -o comb
+
+cp comb /usr/local/bin
+
+```
+
+Now `comb` is in your PATH.
+
+Or you can download the `comb` executable binary file from blew:
+
+- [Mac 64位](http://nos.126.net/cloudadmin/comb)
+- [Linux 64位]()
+- [Linux 32位]()
+- [Windows 64位]()
+- [Windows 32位]()
+
+## Usage
 
 ## Participating
 

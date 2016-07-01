@@ -41,4 +41,6 @@ This document describes some important features `cloudcomb-go-cli` is going to r
 
 ## feature
 
-- [ ] format output
+- [ ] add comb test
+- [ ] format json output
+- [ ] support multi user auth and switch

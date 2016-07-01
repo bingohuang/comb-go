@@ -1,7 +1,7 @@
 package main
 
 import (
-	cc "./cloudcomb"
+	comb "./cloudcomb"
 	"./version"
 	"fmt"
 	"github.com/codegangsta/cli"
@@ -27,13 +27,13 @@ func main() {
 	//sort.Strings(cmds)
 
 	for _, cmd := range cmds {
-		cm, exist := cc.CmdMap[cmd]
+		cm, exist := comb.CmdMap[cmd]
 		if exist {
 			Cmd := cli.Command{
 				Name:  cmd,
 				Usage: cm.Desc,
 				Action: func(c *cli.Context) error {
-					if c.Command.FullName() != "auth" && cc.Driver == nil {
+					if c.Command.FullName() != "auth" && comb.Driver == nil {
 						fmt.Println("Auth first.")
 						os.Exit(-1)
 					}
