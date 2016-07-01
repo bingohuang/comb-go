@@ -53,11 +53,11 @@ Now `comb` is in your PATH.
 
 Or you can download the `comb` executable binary file from blew:
 
-- [x] [Mac 64位](http://nos.126.net/cloudadmin/comb)
-- [ ] [Linux 64位](#)
-- [ ] [Linux 32位](#)
-- [ ] [Windows 64位](#)
-- [ ] [Windows 32位](#)
+- [x] [Mac 64](http://nos.126.net/cloudadmin/comb)
+- [ ] [Linux 64](#)
+- [ ] [Linux 32](#)
+- [ ] [Windows 64](#)
+- [ ] [Windows 32](#)
 
 ## Usage
 
