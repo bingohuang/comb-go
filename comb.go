@@ -1,7 +1,7 @@
 package main
 
 import (
-	comb "./cloudcomb"
+	comb "github.com/bingoHuang/cloudcomb-go-cli/cloudcomb"
 	"./version"
 	"fmt"
 	"github.com/codegangsta/cli"
