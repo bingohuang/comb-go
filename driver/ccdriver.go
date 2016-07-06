@@ -32,7 +32,7 @@ func NewCCDriver(appKey, appSecret string, conc int) (*CcDriver, error) {
 }
 
 // List containers' images
-func (driver *CcDriver) ListContainersImages() (string, error) {
+func (driver *CcDriver) GetContainersImages() (string, error) {
 	result, err := driver.Cc.GetContainersImages()
 	if err != nil {
 		return "", err
@@ -41,7 +41,7 @@ func (driver *CcDriver) ListContainersImages() (string, error) {
 }
 
 // List containers
-func (driver *CcDriver) ListContainers() (string, error) {
+func (driver *CcDriver) GetContainers() (string, error) {
 	result, err := driver.Cc.GetContainers()
 	if err != nil {
 		return "", err
@@ -50,7 +50,7 @@ func (driver *CcDriver) ListContainers() (string, error) {
 }
 
 // List specified container
-func (driver *CcDriver) ListContainer(id string) (string, error) {
+func (driver *CcDriver) GetContainer(id string) (string, error) {
 	result, err := driver.Cc.GetContainer(id)
 	if err != nil {
 		return "", err
@@ -59,10 +59,55 @@ func (driver *CcDriver) ListContainer(id string) (string, error) {
 }
 
 // Get specified container's flow
-func (driver *CcDriver) ContainerFlow(id string) (string, error) {
+func (driver *CcDriver) GetContainerFlow(id string) (string, error) {
 	result, err := driver.Cc.GetContainerFlow(id)
 	if err != nil {
 		return "", err
 	}
 	return result, nil
+}
+
+// Create container
+func (driver *CcDriver) CreateContainer(params string) (uint64, error) {
+	result, err := driver.Cc.CreateContainer(params)
+	if err != nil {
+		return 0, err
+	}
+	return result, nil
+}
+
+// Update container
+func (driver *CcDriver) UpdateContainer(id string, params string) error {
+	err := driver.Cc.UpdateContainer(id, params)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Restart container
+func (driver *CcDriver) RestartContainer(id string) error {
+	err := driver.Cc.RestartContainer(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Tag container
+func (driver *CcDriver) TagContainer(id string, params string) (string, error) {
+	result, err := driver.Cc.TagContainer(id, params)
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
+
+// Restart container
+func (driver *CcDriver) DeleteContainer(id string) error {
+	err := driver.Cc.DeleteContainer(id)
+	if err != nil {
+		return err
+	}
+	return nil
 }

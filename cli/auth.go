@@ -5,7 +5,6 @@ import (
 	log "github.com/Sirupsen/logrus"
 	d "github.com/bingoHuang/cloudcomb-go-cli/driver"
 	"github.com/codegangsta/cli"
-	"os"
 )
 
 // auth command
@@ -27,8 +26,7 @@ func auth(c *cli.Context) error {
 	driver, err = d.NewCCDriver(user.AppKey, user.AppSecret, 10)
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Auth fail. %v", err)
-		os.Exit(-1)
+		log.Fatalf("Auth fail. %v", err)
 	}
 
 	user.Token = driver.Cc.Token
