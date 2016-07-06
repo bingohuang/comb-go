@@ -2,9 +2,9 @@ package cc
 
 import (
 	"fmt"
-	"github.com/codegangsta/cli"
 	c "github.com/bingoHuang/cloudcomb-go-cli/config"
 	d "github.com/bingoHuang/cloudcomb-go-cli/driver"
+	"github.com/codegangsta/cli"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -22,9 +22,9 @@ var (
 var (
 	Commands = []cli.Command{
 		{
-			Name:    "auth",
-			Usage:   "Auth in CloudComb with app key, app secret",
-			Action:  auth,
+			Name:   "auth",
+			Usage:  "Auth in CloudComb with app key, app secret",
+			Action: auth,
 		},
 		{
 			Name:    "container",

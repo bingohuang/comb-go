@@ -6,9 +6,9 @@ import (
 )
 
 type CcDriver struct {
-	Cc       *cloudcomb.CloudComb
+	Cc *cloudcomb.CloudComb
 
-	maxConc  int
+	maxConc int
 
 	progress *uiprogress.Progress
 }

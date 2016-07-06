@@ -3,8 +3,8 @@ package cc
 import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-	"github.com/codegangsta/cli"
 	d "github.com/bingoHuang/cloudcomb-go-cli/driver"
+	"github.com/codegangsta/cli"
 	"os"
 )
 
