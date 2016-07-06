@@ -6,12 +6,13 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"github.com/codegangsta/cli"
 )
 
 type Cmd struct {
 	Desc  string
 	Alias string
-	Func  func(args []string, opts map[string]interface{})
+	Func  func(c *cli.Context, opts map[string]interface{})
 	Flags map[string]CmdFlag
 }
 
@@ -26,7 +27,7 @@ var (
 	Driver *CcDriver
 
 	// config file
-	configFile = filepath.Join(os.Getenv("HOME"), ".cc.cfg")
+	configFile = filepath.Join(os.Getenv("HOME"), ".comb.cfg")
 )
 
 var (
@@ -54,19 +55,21 @@ var (
 )
 
 // Auth function
-func Auth(args []string, opts map[string]interface{}) {
+func Auth(c *cli.Context, opts map[string]interface{}) {
 	user := &userInfo{}
-	if len(args) == 2 {
-		user.AppKey = args[0]
-		user.AppSecret = args[1]
-	} else {
+	if len(c.Args()) == 2 {
+		user.AppKey = c.Args()[0]
+		user.AppSecret = c.Args()[1]
+	} else if len(c.Args()) == 0 {
 		fmt.Printf("AppKey: ")
 		fmt.Scanf("%s \n", &user.AppKey)
 		fmt.Printf("AppSecret: ")
 		fmt.Scanf("%s \n", &user.AppSecret)
+	} else {
+		log.Fatalf("Auth command takes exact two argument. See '%s auth -h'.", c.App.Name)
 	}
 
-	driver, err := NewCCDriver(user.AppKey, user.AppSecret, 10, nil)
+	driver, err := NewCCDriver(user.AppKey, user.AppSecret, 10)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Auth fail. %v", err)
@@ -84,13 +87,7 @@ func Auth(args []string, opts map[string]interface{}) {
 }
 
 // Container function
-func Container(args []string, opts map[string]interface{}) {
-	// args
-	var containerId string
-	if len(args) > 0 {
-		containerId = args[0]
-	}
-
+func Container(c *cli.Context, opts map[string]interface{}) {
 	// opts
 	isAll, isImages, isFlow := false, false, false
 	if v, ok := opts["a"]; ok {
@@ -109,6 +106,7 @@ func Container(args []string, opts map[string]interface{}) {
 		}
 	}
 
+	// -a
 	if isAll {
 		result, err := Driver.ListContainers()
 		if err != nil {
@@ -119,6 +117,7 @@ func Container(args []string, opts map[string]interface{}) {
 		return
 	}
 
+	// -i
 	if isImages {
 		result, err := Driver.ListContainersImages()
 		if err != nil {
@@ -129,6 +128,14 @@ func Container(args []string, opts map[string]interface{}) {
 		return
 	}
 
+	// args
+	if len(c.Args()) == 0 {
+		log.Fatalf("Container command need to specify id. See '%s auth -h'.", c.App.Name)
+	}
+
+	containerId := c.Args()[0]
+
+	// -f
 	if isFlow {
 		result, err := Driver.ContainerFlow(containerId)
 		if err != nil {
@@ -139,42 +146,43 @@ func Container(args []string, opts map[string]interface{}) {
 		return
 	}
 
+	// list container
 	result, err := Driver.ListContainer(containerId)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "List container(%s) fail. %v", containerId, err)
 		os.Exit(-1)
 	}
 	fmt.Printf(result)
+
 	return
 }
 
 // Cluster function TODO
-func Cluster(args []string, opts map[string]interface{}) {
+func Cluster(c *cli.Context, opts map[string]interface{}) {
 
 }
 
 // Repository function TODO
-func Repository(args []string, opts map[string]interface{}) {
+func Repository(c *cli.Context, opts map[string]interface{}) {
 
 }
 
 // Secretkey function TODO
-func Secretkey(args []string, opts map[string]interface{}) {
+func Secretkey(c *cli.Context, opts map[string]interface{}) {
 
 }
 
 func init() {
 	if runtime.GOOS == "windows" {
-		configFile = filepath.Join(os.Getenv("USERPROFILE"), ".cc.cfg")
+		configFile = filepath.Join(os.Getenv("USERPROFILE"), ".comb.cfg")
 	}
 	conf = &Config{}
 	conf.Load(configFile)
 
 	user = conf.GetCurUser()
-	logger := log.New(os.Stdout, "cloudcomb", 0)
 	if user != nil {
 		var err error
-		Driver, err = NewCCDriver(user.AppKey, user.AppSecret, 10, logger)
+		Driver, err = NewCCDriver(user.AppKey, user.AppSecret, 10)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Failed to auth. %v\n", err)
 			conf.Idx = 0

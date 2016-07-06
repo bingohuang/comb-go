@@ -1,5 +1,11 @@
 # CloucComb Open API CLI
 
+## Version 0.1.1 (2016.07.05)
+
+### features
+
+1. optimize `comb`
+
 ## Version 0.1.0 (2016.07.01)
 
 ### features

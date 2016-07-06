@@ -1,9 +1,10 @@
 package main
 
 import (
-	comb "github.com/bingoHuang/cloudcomb-go-cli/cloudcomb"
-	"./version"
 	"fmt"
+	log "github.com/Sirupsen/logrus"
+	comb "github.com/bingoHuang/cloudcomb-go-cli/cloudcomb"
+	"github.com/bingoHuang/cloudcomb-go-cli/version"
 	"github.com/codegangsta/cli"
 	"os"
 	"runtime"
@@ -16,16 +17,44 @@ var cmds = []string{
 func main() {
 	app := cli.NewApp()
 	app.Name = "comb"
-	app.Usage = `is a tool for manage resources in [CloudComb](http://c.163.com)
-		    base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli)`
+	app.Usage = `is a tool to manage CloudComb resources base on cloudcomb-go-sdk.`
 	app.Author = "Bingo Huang"
-	app.Email = "bingo@xbing.me"
+	app.Email = "me@bingohuang.com"
 	app.Version = fmt.Sprintf("%s %s/%s %s", version.VERSION, runtime.GOOS,
 		runtime.GOARCH, runtime.Version())
+
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:   "debug",
+			Usage:  "debug mode",
+			EnvVar: "DEBUG",
+		},
+
+		cli.StringFlag{
+			Name:  "log-level, l",
+			Value: "info",
+			Usage: fmt.Sprintf("Log level (options: debug, info, warn, error, fatal, panic)"),
+		},
+	}
+
+	// setup log-level
+	app.Before = func(c *cli.Context) error {
+		log.SetOutput(os.Stderr)
+		level, err := log.ParseLevel(c.String("log-level"))
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+		log.SetLevel(level)
+
+		if !c.IsSet("log-level") && !c.IsSet("l") && c.Bool("debug") {
+			log.SetLevel(log.DebugLevel)
+		}
+
+		return nil
+	}
+
 	app.Commands = make([]cli.Command, 0)
-
 	//sort.Strings(cmds)
-
 	for _, cmd := range cmds {
 		cm, exist := comb.CmdMap[cmd]
 		if exist {
@@ -34,8 +63,7 @@ func main() {
 				Usage: cm.Desc,
 				Action: func(c *cli.Context) error {
 					if c.Command.FullName() != "auth" && comb.Driver == nil {
-						fmt.Println("Auth first.")
-						os.Exit(-1)
+						log.Fatalln("Auth first.")
 					}
 					opts := make(map[string]interface{})
 					for k, v := range cm.Flags {
@@ -48,10 +76,9 @@ func main() {
 							case "int":
 								opts[k] = c.Int(k)
 							}
-
 						}
 					}
-					cm.Func(c.Args(), opts)
+					cm.Func(c, opts)
 					return nil
 				},
 			}
@@ -77,5 +104,8 @@ func main() {
 		}
 	}
 
-	app.Run(os.Args)
+	// run app
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err)
+	}
 }
