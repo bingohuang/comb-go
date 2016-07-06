@@ -1,4 +1,4 @@
-package cc
+package config
 
 import (
 	"encoding/base64"
@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-type userInfo struct {
+type UserInfo struct {
 	AppKey    string `json:"app_key"`
 	AppSecret string `json:"app_secret"`
 	Token     string `json:"token"`
@@ -17,7 +17,7 @@ type userInfo struct {
 
 type Config struct {
 	Idx   int         `json:"user_idx"`
-	Users []*userInfo `json:"users"`
+	Users []*UserInfo `json:"users"`
 }
 
 // save config
@@ -59,7 +59,7 @@ func (c *Config) Load(fname string) error {
 }
 
 // get current user from config
-func (c *Config) GetCurUser() *userInfo {
+func (c *Config) GetCurUser() *UserInfo {
 	if c.Idx >= 0 && c.Idx < len(c.Users) {
 		return c.Users[c.Idx]
 	}
@@ -67,7 +67,7 @@ func (c *Config) GetCurUser() *userInfo {
 }
 
 // update user info in config
-func (c *Config) UpdateUserInfo(u *userInfo) {
+func (c *Config) UpdateUserInfo(u *UserInfo) {
 	c.Idx = -1
 	for k, v := range c.Users {
 		if v.AppKey == u.AppKey {

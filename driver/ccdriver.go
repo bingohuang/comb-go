@@ -1,4 +1,4 @@
-package cc
+package driver
 
 import (
 	"github.com/bingoHuang/cloudcomb-go-sdk/cloudcomb"
@@ -6,9 +6,9 @@ import (
 )
 
 type CcDriver struct {
-	cc *cloudcomb.CloudComb
+	Cc       *cloudcomb.CloudComb
 
-	maxConc int
+	maxConc  int
 
 	progress *uiprogress.Progress
 }
@@ -16,24 +16,24 @@ type CcDriver struct {
 // New CloudComb driver
 func NewCCDriver(appKey, appSecret string, conc int) (*CcDriver, error) {
 	driver := &CcDriver{
-		cc:      cloudcomb.NewCC(appKey, appSecret),
+		Cc:      cloudcomb.NewCC(appKey, appSecret),
 		maxConc: conc,
 	}
 
-	token, expiresIn, err := driver.cc.UserToken()
+	token, expiresIn, err := driver.Cc.UserToken()
 	if err != nil {
 		return nil, err
 	}
 
-	driver.cc.Token = token
-	driver.cc.ExpiresIn = expiresIn
+	driver.Cc.Token = token
+	driver.Cc.ExpiresIn = expiresIn
 
 	return driver, nil
 }
 
 // List containers' images
 func (driver *CcDriver) ListContainersImages() (string, error) {
-	result, err := driver.cc.GetContainersImages()
+	result, err := driver.Cc.GetContainersImages()
 	if err != nil {
 		return "", err
 	}
@@ -42,7 +42,7 @@ func (driver *CcDriver) ListContainersImages() (string, error) {
 
 // List containers
 func (driver *CcDriver) ListContainers() (string, error) {
-	result, err := driver.cc.GetContainers()
+	result, err := driver.Cc.GetContainers()
 	if err != nil {
 		return "", err
 	}
@@ -51,7 +51,7 @@ func (driver *CcDriver) ListContainers() (string, error) {
 
 // List specified container
 func (driver *CcDriver) ListContainer(id string) (string, error) {
-	result, err := driver.cc.GetContainer(id)
+	result, err := driver.Cc.GetContainer(id)
 	if err != nil {
 		return "", err
 	}
@@ -60,7 +60,7 @@ func (driver *CcDriver) ListContainer(id string) (string, error) {
 
 // Get specified container's flow
 func (driver *CcDriver) ContainerFlow(id string) (string, error) {
-	result, err := driver.cc.GetContainerFlow(id)
+	result, err := driver.Cc.GetContainerFlow(id)
 	if err != nil {
 		return "", err
 	}

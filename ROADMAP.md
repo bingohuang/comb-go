@@ -1,6 +1,6 @@
-# Roadmap
+# Road map
 
-This document describes some important features `cloudcomb-go-cli` is going to realize.
+This document describes some important features `comb` is going to realize.
 
 ## Container
 
@@ -41,6 +41,7 @@ This document describes some important features `cloudcomb-go-cli` is going to r
 
 ## feature
 
+- [x] refactor comb
 - [ ] add comb test
 - [ ] format json output
 - [ ] support multi user auth and switch
