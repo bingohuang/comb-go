@@ -1,7 +1,7 @@
 package cc
 
 import (
-	"fmt"
+	log "github.com/Sirupsen/logrus"
 	c "github.com/bingoHuang/cloudcomb-go-cli/config"
 	d "github.com/bingoHuang/cloudcomb-go-cli/driver"
 	"github.com/codegangsta/cli"
@@ -28,28 +28,28 @@ var (
 		},
 		{
 			Name:    "container",
-			Usage:   "Operate container",
+			Usage:   "Operate containers in CLoudComb",
 			Aliases: []string{"co"},
 			Action:  container,
 			Flags:   containerFlags,
 		},
 		{
 			Name:    "cluster",
-			Usage:   "Operate cluster",
+			Usage:   "Operate clusters in CLoudComb",
 			Aliases: []string{"cu"},
 			Action:  cluster,
 			Flags:   clusterFlags,
 		},
 		{
 			Name:    "repositry",
-			Usage:   "Operate repositry",
+			Usage:   "Operate repositrys in CLoudComb",
 			Aliases: []string{"re"},
 			Action:  repository,
 			Flags:   repositoryFlags,
 		},
 		{
 			Name:    "secretkey",
-			Usage:   "Operate secret key",
+			Usage:   "Operate secret keys in CLoudComb",
 			Aliases: []string{"sk"},
 			Action:  secretKey,
 			Flags:   secretkeyFlags,
@@ -69,11 +69,12 @@ func init() {
 		var err error
 		driver, err = d.NewCCDriver(user.AppKey, user.AppSecret, 10)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Failed to auth. %v\n", err)
 			conf.Idx = 0
 			conf.RemoveUser()
 			conf.Save(configFile)
-			os.Exit(-1)
+			log.Fatalf("Failed to auth. %v\n", err)
 		}
+	} else {
+		user = new(c.UserInfo)
 	}
 }
