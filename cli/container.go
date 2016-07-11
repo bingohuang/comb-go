@@ -11,8 +11,8 @@ func container(c *cli.Context) error {
 	if driver == nil {
 		log.Fatalf("Please auth first. \n")
 	}
-	isAll := c.Bool("a")
 	isImages := c.Bool("i")
+	isAll := c.Bool("a")
 	isFlow := c.Bool("f")
 	isCreate := c.Bool("c")
 	isUpdate := c.Bool("u")
@@ -20,21 +20,21 @@ func container(c *cli.Context) error {
 	isTag := c.Bool("t")
 	isDelete := c.Bool("d")
 
-	// -a
-	if isAll {
-		result, err := driver.GetContainers()
-		if err != nil {
-			log.Fatalf("List all containers fail. %v", err)
-		}
-		fmt.Printf(result)
-		return nil
-	}
-
 	// -i
 	if isImages {
 		result, err := driver.GetContainersImages()
 		if err != nil {
 			log.Fatalf("List containers images fail. %v", err)
+		}
+		fmt.Printf(result)
+		return nil
+	}
+
+	// -a
+	if isAll {
+		result, err := driver.GetContainers()
+		if err != nil {
+			log.Fatalf("List all containers fail. %v", err)
 		}
 		fmt.Printf(result)
 		return nil
@@ -68,7 +68,7 @@ func container(c *cli.Context) error {
 	}
 	// -u
 	if isUpdate {
-		jsonParams := c.Args()[0]
+		jsonParams := c.Args()[1]
 		err := driver.UpdateContainer(containerId, jsonParams)
 		if err != nil {
 			log.Fatalf("Update specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
@@ -85,10 +85,10 @@ func container(c *cli.Context) error {
 	}
 	// -t
 	if isTag {
-		jsonParams := c.Args()[0]
+		jsonParams := c.Args()[1]
 		result, err := driver.TagContainer(containerId, jsonParams)
 		if err != nil {
-			log.Fatalf("Tag specified container(%s) with conttent(%s) fail. %v", containerId, jsonParams, err)
+			log.Fatalf("Tag specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
 		}
 		fmt.Printf(result)
 		return nil

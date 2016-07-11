@@ -1,5 +1,12 @@
 # CloucComb Open API CLI
 
+## Version 1.0.0 (2016.07.11)
+
+### features
+
+1. finish `comb` for manage container
+2. add test for `comb`
+
 ## Version 0.2.0 (2016.07.06)
 
 ### features
@@ -16,7 +23,7 @@
 
 ### features
 
-1. optimize commands with options
+1. optimize commands with options, remove `lsci`, `lscs`, `lsco`
 2. add ROADMAP
 3. update README
 

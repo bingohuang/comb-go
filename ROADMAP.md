@@ -8,11 +8,11 @@ This document describes some important features `comb` is going to realize.
 - [x] list all containers' info
 - [x] get specified container's info
 - [x] get specified container's flow 
-- [ ] create container
-- [ ] update container
-- [ ] delete container
-- [ ] restart container
-- [ ] tag a container to a image
+- [x] create container
+- [x] update container
+- [x] delete container
+- [x] restart container
+- [x] tag a container to a image
 
 ## Cluster
 
@@ -42,6 +42,6 @@ This document describes some important features `comb` is going to realize.
 ## feature
 
 - [x] refactor comb
-- [ ] add comb test
+- [x] add comb test
 - [ ] format json output
 - [ ] support multi user auth and switch
