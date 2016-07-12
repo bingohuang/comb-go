@@ -7,6 +7,7 @@
 1. change the project name to comb
 2. optimize `comb container` command
 3. optimize `comb container` test
+4. Add Mac, Linux and Windows executable binary file.
 
 ## Version 1.0.0 (2016.07.11)
 
