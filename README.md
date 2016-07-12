@@ -4,15 +4,14 @@ CloudComb CLI tool: `comb`
 
 ## Get Started
 
-`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-sdk). Mac, Linux, Windows supported.
+`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-sdk). Support Mac, Linux and Windows.
 
-We had better read `comb -h` to get more instruments.
+We had better read `comb` or `comb -h` to get more instruments.
 
 ```
-☁  cloudcomb-go-cli [master] ⚡ comb -h
+☁  comb [master] ⚡ comb -h
 NAME:
-   comb - is a tool for manage resources in [CloudComb](http://c.163.com)
-        base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-cli)
+   comb - is a tool to manage CloudComb resources base on cloudcomb-go-sdk.
 
 USAGE:
    comb [global options] command [command options] [arguments...]
@@ -21,29 +20,33 @@ VERSION:
    0.0.3 darwin/amd64 go1.6.2
 
 AUTHOR(S):
-   Bingo Huang <bingo@xbing.me>
+   Bingo Huang <me@bingohuang.com>
 
 COMMANDS:
-     auth            Auth in CloudComb with app key, app secret
-     container, co   Container related API
-     cluster, cl     Cluster related API
-     repository, re  Repository related API
-     secretkey, se   Sercet key related API
+     auth           Auth in CloudComb with app key, app secret
+     container, co  Operate containers in CLoudComb
+     cluster,   cu  Operate clusters in CLoudComb
+     repositry, re  Operate repositrys in CLoudComb
+     secretkey, sk  Operate secret keys in CLoudComb
 
 GLOBAL OPTIONS:
-   --help, -h     show help
-   --version, -v  print the version
+   --debug                      debug mode [$DEBUG]
+   --log-level value, -l value  Log level (options: debug, info, warn, error, fatal, panic) (default: "info")
+   --help, -h                   show help
+   --version, -v                print the version
 ```
 
 Then enjoy your journey with `comb` if you happen to find some command are helpful to you.
 
 ## Build and Install `comb`
+
+### Build in current directory
 ```
-git clone https://github.com/bingoHuang/cloudcomb-go-cli.git
-cd cloudcomb-go-cli
+git clone https://github.com/bingoHuang/comb.git
+cd comb
 export GOPATH=`pwd`
 go get -d
-go build -o comb
+go build
 
 cp comb /usr/local/bin
 
@@ -51,7 +54,25 @@ cp comb /usr/local/bin
 
 Now `comb` is in your PATH.
 
-Or you can download the `comb` executable binary file from blew:
+### Build in $GOPATH with `gvm`(**Recommend**)
+
+1. install [`gvm`](https://github.com/moovweb/gvm)
+2. install `go1.6.2`(**Recommend**)
+```
+gvm install go1.4 -B
+gvm use go1.4
+export GOROOT_BOOTSTRAP=$GOROOT
+gvm install go1.6.2
+gvm use go1.6.2 --default
+```
+
+3. get and build `comb`
+```
+go get github.com/bingoHuang/comb
+```
+Now `comb` is in your `$GOPATH/bin`.
+
+### Or you can download the `comb` executable binary file from blew:
 
 - [x] [Mac 64](http://nos.126.net/cloudadmin/comb)
 - [ ] [Linux 64](#)

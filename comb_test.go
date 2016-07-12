@@ -39,9 +39,15 @@ func TestGetContainersImages(t *testing.T) {
 }
 
 func TestGetContainers(t *testing.T) {
-	res, err := combCli("co", "-a")
+	res, err := combCli("co")
 
-	check(t, err == nil, "failed to get all containers")
+	check(t, err == nil, "failed to get all containers by `comb co`")
+	fmt.Printf("%s", string(res))
+	time.Sleep(time.Duration(time.Second))
+
+	res, err = combCli("co", "-a")
+
+	check(t, err == nil, "failed to get all containers by `comb co -a`")
 	fmt.Printf("%s", string(res))
 	time.Sleep(time.Duration(time.Second))
 }
@@ -68,12 +74,14 @@ func TestCreateContainer(t *testing.T) {
 	res, err := combCli("co", "-c", params)
 
 	check(t, err == nil, "failed to create container", err)
+
 	resStr := string(res)
-	fmt.Printf("%s/n", resStr)
-	containerId := resStr[strings.LastIndex(resStr, ":")+2 : len(resStr)]
-	fmt.Printf("containerId=%s/n", containerId)
+	// substring the container id from "Container id: %d\n"
+	containerId := resStr[strings.LastIndex(resStr, ":")+2 : len(resStr)-1]
+
 	os.Setenv("CC_CONTAINER_ID", containerId)
 	fmt.Printf("CC_CONTAINER_ID=%s\n", os.Getenv("CC_CONTAINER_ID"))
+
 	// waiting 60s for finish creating the container
 	time.Sleep(time.Duration(60 * time.Second))
 }

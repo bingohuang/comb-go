@@ -26,23 +26,18 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("List containers images fail. %v", err)
 		}
-		fmt.Printf(result)
+		fmt.Println(result)
 		return nil
 	}
 
 	// -a
-	if isAll {
+	if isAll || len(c.Args()) == 0 {
 		result, err := driver.GetContainers()
 		if err != nil {
 			log.Fatalf("List all containers fail. %v", err)
 		}
-		fmt.Printf(result)
+		fmt.Println(result)
 		return nil
-	}
-
-	// args
-	if len(c.Args()) == 0 {
-		log.Fatalf("Container command need to specify id. See '%s co -h'.", c.App.Name)
 	}
 
 	// -c
@@ -52,10 +47,14 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Create container(%s) fail. %v", jsonParams, err)
 		}
-		fmt.Printf("Container id: %d", id)
+		fmt.Printf("Container id: %d\n", id)
 		return nil
 	}
 
+	// args
+	if len(c.Args()) == 0 {
+		log.Fatalf("Container command need to specify id. See '%s co -h'.", c.App.Name)
+	}
 	containerId := c.Args()[0]
 	// -f
 	if isFlow {
@@ -63,16 +62,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Get specified container(%s) flow fail. %v", containerId, err)
 		}
-		fmt.Printf(result)
-		return nil
-	}
-	// -u
-	if isUpdate {
-		jsonParams := c.Args()[1]
-		err := driver.UpdateContainer(containerId, jsonParams)
-		if err != nil {
-			log.Fatalf("Update specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
-		}
+		fmt.Println(result)
 		return nil
 	}
 	// -r
@@ -81,16 +71,6 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Restart specified container(%s) fail. %v", containerId, err)
 		}
-		return nil
-	}
-	// -t
-	if isTag {
-		jsonParams := c.Args()[1]
-		result, err := driver.TagContainer(containerId, jsonParams)
-		if err != nil {
-			log.Fatalf("Tag specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
-		}
-		fmt.Printf(result)
 		return nil
 	}
 	// -d
@@ -102,12 +82,36 @@ func container(c *cli.Context) error {
 		return nil
 	}
 
+	// -t|-u args
+	if (isTag || isUpdate) && len(c.Args()) < 2 {
+		log.Fatalf("Container command need to specify id and params. See '%s co -h'.", c.App.Name)
+	}
+	// -t
+	if isTag {
+		jsonParams := c.Args()[1]
+		result, err := driver.TagContainer(containerId, jsonParams)
+		if err != nil {
+			log.Fatalf("Tag specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
+		}
+		fmt.Println(result)
+		return nil
+	}
+	// -u
+	if isUpdate {
+		jsonParams := c.Args()[1]
+		err := driver.UpdateContainer(containerId, jsonParams)
+		if err != nil {
+			log.Fatalf("Update specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
+		}
+		return nil
+	}
+
 	// list container
 	result, err := driver.GetContainer(containerId)
 	if err != nil {
 		log.Fatalf("List container(%s) flow fail. %v", containerId, err)
 	}
-	fmt.Printf(result)
+	fmt.Println(result)
 
 	return nil
 }

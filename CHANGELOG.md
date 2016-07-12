@@ -1,5 +1,13 @@
 # CloucComb Open API CLI
 
+## Version 1.0.1 (2016.07.12)
+
+### features
+
+1. change the project name to comb
+2. optimize `comb container` command
+3. optimize `comb container` test
+
 ## Version 1.0.0 (2016.07.11)
 
 ### features

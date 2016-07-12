@@ -2,8 +2,8 @@ package cc
 
 import (
 	log "github.com/Sirupsen/logrus"
-	c "github.com/bingoHuang/cloudcomb-go-cli/config"
-	d "github.com/bingoHuang/cloudcomb-go-cli/driver"
+	c "github.com/bingoHuang/comb/config"
+	d "github.com/bingoHuang/comb/driver"
 	"github.com/codegangsta/cli"
 	"os"
 	"path/filepath"
