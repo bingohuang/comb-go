@@ -74,9 +74,9 @@ Now `comb` is in your `$GOPATH/bin`.
 
 ### Or you can download the `comb` executable binary file from blew:
 
-- [x] [Mac 64](http://nos.126.net/comb/comb_darwin_amd64_1.0.1)
-- [x] [Linux 64](http://nos.126.net/comb/comb_linux_amd64_1.0.1)
-- [x] [Windows 64](http://nos.126.net/comb/comb_windows_amd64_1.0.1.exe)
+- [x] [Mac 64](http://nos.126.net/comb/comb_darwin_amd64)
+- [x] [Linux 64](http://nos.126.net/comb/comb_linux_amd64)
+- [x] [Windows 64](http://nos.126.net/comb/comb_windows_amd64.exe)
 
 ## Usage
 
