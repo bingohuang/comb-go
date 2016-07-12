@@ -24,10 +24,10 @@ AUTHOR(S):
 
 COMMANDS:
      auth           Auth in CloudComb with app key, app secret
-     container, co  Operate containers in CLoudComb
-     cluster,   cu  Operate clusters in CLoudComb
-     repositry, re  Operate repositrys in CLoudComb
-     secretkey, sk  Operate secret keys in CLoudComb
+     container, co  Operate containers in CloudComb
+     cluster,   cu  Operate clusters in CloudComb
+     repositry, re  Operate repositrys in CloudComb
+     secretkey, sk  Operate secret keys in CloudComb
 
 GLOBAL OPTIONS:
    --debug                      debug mode [$DEBUG]
