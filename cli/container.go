@@ -109,7 +109,7 @@ func container(c *cli.Context) error {
 	// list container
 	result, err := driver.GetContainer(containerId)
 	if err != nil {
-		log.Fatalf("List container(%s) flow fail. %v", containerId, err)
+		log.Fatalf("List container(%s) fail. %v", containerId, err)
 	}
 	fmt.Println(result)
 

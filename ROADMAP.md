@@ -44,4 +44,6 @@ This document describes some important features `comb` is going to realize.
 - [x] refactor comb
 - [x] add comb test
 - [ ] format json output
+- [ ] optimize json output
 - [ ] support multi user auth and switch
+- [ ] add travis
