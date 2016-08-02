@@ -20,13 +20,12 @@ func NewCCDriver(appKey, appSecret string, conc int) (*CcDriver, error) {
 		maxConc: conc,
 	}
 
-	token, expiresIn, err := driver.Cc.UserToken()
+	token, err := driver.Cc.UserToken()
 	if err != nil {
 		return nil, err
 	}
 
 	driver.Cc.Token = token
-	driver.Cc.ExpiresIn = expiresIn
 
 	return driver, nil
 }
@@ -68,7 +67,7 @@ func (driver *CcDriver) GetContainerFlow(id string) (string, error) {
 }
 
 // Create container
-func (driver *CcDriver) CreateContainer(params string) (uint64, error) {
+func (driver *CcDriver) CreateContainer(params string) (uint, error) {
 	result, err := driver.Cc.CreateContainer(params)
 	if err != nil {
 		return 0, err

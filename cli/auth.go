@@ -30,7 +30,6 @@ func auth(c *cli.Context) error {
 	}
 
 	user.Token = driver.Cc.Token
-	user.ExpiresIn = driver.Cc.ExpiresIn
 
 	// save
 	conf.UpdateUserInfo(user)

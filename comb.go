@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-	combCli "github.com/bingoHuang/comb/cli"
+	comb "github.com/bingoHuang/comb/cli"
 	"github.com/bingoHuang/comb/version"
 	"github.com/codegangsta/cli"
 	"os"
@@ -52,7 +52,7 @@ func main() {
 	}
 
 	// setup commands
-	app.Commands = combCli.Commands
+	app.Commands = comb.Commands
 
 	// run app
 	if err := app.Run(os.Args); err != nil {
