@@ -3,7 +3,7 @@ package cc
 import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-	d "github.com/bingoHuang/comb/driver"
+	d "github.com/bingohuang/comb/driver"
 	"github.com/codegangsta/cli"
 )
 

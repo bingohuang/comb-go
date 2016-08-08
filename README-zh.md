@@ -2,13 +2,13 @@
 ====================
 
 ## comb 是什么
-[`comb`](https://github.com/bingoHuang/comb) 是一款用来管理  [`网易蜂巢`](http://c.163.com) 在线资源的 CLI 工具，[`Golang`](http://golang.org) 编写，基于 [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-sdk) 和蜂巢 [OpenAPI](https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%BB%8D) 开发，使用简单，支持在三大平台上运行，包括Mac、Linux和Windows。
+[`comb`](https://github.com/bingohuang/comb) 是一款用来管理  [`网易蜂巢`](http://c.163.com) 在线资源的 CLI 工具，[`Golang`](http://golang.org) 编写，基于 [cloudcomb-go-sdk](https://github.com/bingohuang/cloudcomb-go-sdk) 和蜂巢 [OpenAPI](https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%BB%8D) 开发，使用简单，支持在三大平台上运行，包括Mac、Linux和Windows。
 
 ## comb 做什么
 `comb` 能方便的查看和管理  [`网易蜂巢`](http://c.163.com)的线上资源，包括用户认证（已完成）、容器管理（已完成）、集群管理、镜像管理以及秘钥管理等。同时能直接通过 `bash` 等脚本和 CI 平台结合，实现资源的自动化分配和部署，集成蜂巢的资源管理功能。
 
 ## comb 怎么用
-首选阅读该项目的 [`README`](https://github.com/bingoHuang/comb) 文档，概要的介绍了 `comb` 的功能以及编译、安装和使用方式。运行 `comb` 或 `comb -h` 能查看到详细的帮助文档。
+首选阅读该项目的 [`README`](https://github.com/bingohuang/comb) 文档，概要的介绍了 `comb` 的功能以及编译、安装和使用方式。运行 `comb` 或 `comb -h` 能查看到详细的帮助文档。
 ```
 ☁  comb [master] ⚡ comb -h
 NAME:
@@ -68,7 +68,7 @@ OPTIONS:
 ☁  Downloads  mv comb /usr/local/bin
 ```
 
-或者你也可以自行编译打包，请参考工程中 [`README`](https://github.com/bingoHuang/comb) 文档
+或者你也可以自行编译打包，请参考工程中 [`README`](https://github.com/bingohuang/comb) 文档
 
 一般来说，你首先需要通过 `auth` 获取 `token`，有效期为 24 小时，AppKey 和 AppSecret 请在 [`网易蜂巢控制台`](https://c.163.com/dashboard) 的 [API菜单栏](https://c.163.com/dashboard#/m/account/api/)下获取。
 
@@ -139,15 +139,15 @@ COMMANDS:
 ☁  comb [master] ⚡ comb co | python -mjson.tool
 ```
 
-从工程上说，comb 是一款开源软件，托管到 [`Github`](https://github.com/bingoHuang/comb) 上，采用 Apache License 2.0 协议。代码尽量规范，注释尽量清晰，README、CHANGELOG和ROADMAP齐全，同时书写了单元测试，后续将加入 `travis` 做持续构建。
+从工程上说，comb 是一款开源软件，托管到 [`Github`](https://github.com/bingohuang/comb) 上，采用 Apache License 2.0 协议。代码尽量规范，注释尽量清晰，README、CHANGELOG和ROADMAP齐全，同时书写了单元测试，后续将加入 `travis` 做持续构建。
 
-总的来说，`comb` 还有不少需要完善的地方，具体可以参见项目的 [`ROADMAP`](https://github.com/bingoHuang/comb/blob/master/ROADMAP.md)，欢迎任何人给 `comb` 提 `issue` 或 `PR`，我将会一一查看并回复，`PR` 审核通过将会合入主代码分支。
+总的来说，`comb` 还有不少需要完善的地方，具体可以参见项目的 [`ROADMAP`](https://github.com/bingohuang/comb/blob/master/ROADMAP.md)，欢迎任何人给 `comb` 提 `issue` 或 `PR`，我将会一一查看并回复，`PR` 审核通过将会合入主代码分支。
 
-心动不如行动，既可以练手 Golang，还能更好的熟悉容器云平台的运作，保不准你还从此走上了 `'Golang+云平台开发大神'`之路哦。在此之前，还请大神给 `comb` 点个赞吧！([请猛戳此处](https://github.com/bingoHuang/comb))
+心动不如行动，既可以练手 Golang，还能更好的熟悉容器云平台的运作，保不准你还从此走上了 `'Golang+云平台开发大神'`之路哦。在此之前，还请大神给 `comb` 点个赞吧！([请猛戳此处](https://github.com/bingohuang/comb))
 
 ## 附上相关地址：
-* comb 工具： https://github.com/bingoHuang/comb
-* Golang SDK:  https://github.com/bingoHuang/cloudcomb-go-sdk
+* comb 工具： https://github.com/bingohuang/comb
+* Golang SDK:  https://github.com/bingohuang/cloudcomb-go-sdk
 * 网易蜂巢 OpenAPI：https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%BB%8D
 * 网易蜂巢 平台： http://c.163.com
 

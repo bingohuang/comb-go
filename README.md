@@ -4,7 +4,7 @@ CloudComb CLI tool: `comb`
 
 ## Get Started
 
-`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingoHuang/cloudcomb-go-sdk). Support Mac, Linux and Windows.
+`comb` is a CLI tool for manage resources in [CloudComb](http://c.163.com) base on [cloudcomb-go-sdk](https://github.com/bingohuang/cloudcomb-go-sdk). Support Mac, Linux and Windows.
 
 We had better read `comb` or `comb -h` to get more instruments.
 
@@ -42,7 +42,7 @@ Then enjoy your journey with `comb` if you happen to find some command are helpf
 
 ### Build in current directory
 ```
-git clone https://github.com/bingoHuang/comb.git
+git clone https://github.com/bingohuang/comb.git
 cd comb
 export GOPATH=`pwd`
 go get -d
@@ -68,7 +68,7 @@ gvm use go1.6.2 --default
 
 3. get and build `comb`
 ```
-go get github.com/bingoHuang/comb
+go get github.com/bingohuang/comb
 ```
 Now `comb` is in your `$GOPATH/bin`.
 

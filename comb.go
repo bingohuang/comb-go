@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-	comb "github.com/bingoHuang/comb/cli"
-	"github.com/bingoHuang/comb/version"
+	comb "github.com/bingohuang/comb/cli"
+	"github.com/bingohuang/comb/version"
 	"github.com/codegangsta/cli"
 	"os"
 	"runtime"

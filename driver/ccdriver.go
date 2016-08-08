@@ -1,7 +1,7 @@
 package driver
 
 import (
-	"github.com/bingoHuang/cloudcomb-go-sdk/cloudcomb"
+	cloudcomb "github.com/bingohuang/cloudcomb-go-sdk"
 	"github.com/gosuri/uiprogress"
 )
 
