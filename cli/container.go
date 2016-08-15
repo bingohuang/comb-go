@@ -40,6 +40,11 @@ func container(c *cli.Context) error {
 		return nil
 	}
 
+	// args
+	if len(c.Args()) == 0 {
+		log.Fatalf("Container command need to specify param. See '%s co -h'.", c.App.Name)
+	}
+
 	// -c
 	if isCreate {
 		jsonParams := c.Args()[0]
@@ -49,11 +54,6 @@ func container(c *cli.Context) error {
 		}
 		fmt.Printf("Container id: %d\n", id)
 		return nil
-	}
-
-	// args
-	if len(c.Args()) == 0 {
-		log.Fatalf("Container command need to specify id. See '%s co -h'.", c.App.Name)
 	}
 	containerId := c.Args()[0]
 	// -f
