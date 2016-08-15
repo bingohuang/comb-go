@@ -57,5 +57,13 @@ var (
 			Name:  "a",
 			Usage: "List all secret keys.",
 		},
+		cli.BoolFlag{
+			Name:  "c",
+			Usage: "create a secret key with arg key name.",
+		},
+		cli.BoolFlag{
+			Name:  "d",
+			Usage: "delete the secret key with arg id.",
+		},
 	}
 )

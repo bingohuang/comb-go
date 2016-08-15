@@ -1,6 +1,10 @@
 # CloucComb Open API CLI
 
-## Version 1.0.1 (2016.08.08)
+## Version 1.1.0 (2016.08.15)
+
+1. add SecretKey commands
+
+## Version 1.0.2 (2016.08.08)
 
 1. refactor github name
 

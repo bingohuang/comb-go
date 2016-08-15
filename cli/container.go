@@ -52,7 +52,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Create container(%s) fail. %v", jsonParams, err)
 		}
-		fmt.Printf("Container id: %d\n", id)
+		fmt.Printf("Create Container(Id: %d) success.\n", id)
 		return nil
 	}
 	containerId := c.Args()[0]
@@ -71,6 +71,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Restart specified container(%s) fail. %v", containerId, err)
 		}
+		fmt.Printf("Restarting container(%s)...\n", containerId)
 		return nil
 	}
 	// -d
@@ -79,6 +80,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Delete specified container(%s) fail. %v", containerId, err)
 		}
+		fmt.Printf("Delete container(%s) success.\n", containerId)
 		return nil
 	}
 
@@ -103,6 +105,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Update specified container(%s) with content(%s) fail. %v", containerId, jsonParams, err)
 		}
+		fmt.Printf("Update container(%s) success.\n", containerId)
 		return nil
 	}
 

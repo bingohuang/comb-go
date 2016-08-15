@@ -1,6 +1,7 @@
 package driver
 
 import (
+	"fmt"
 	cloudcomb "github.com/bingohuang/cloudcomb-go-sdk"
 	"github.com/gosuri/uiprogress"
 )
@@ -105,6 +106,46 @@ func (driver *CcDriver) TagContainer(id string, params string) (string, error) {
 // Restart container
 func (driver *CcDriver) DeleteContainer(id string) error {
 	err := driver.Cc.DeleteContainer(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// List containers
+func (driver *CcDriver) GetSecretKeys() (string, error) {
+	result, err := driver.Cc.GetSecretKeys()
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
+
+// List specified container
+func (driver *CcDriver) GetSecretKey(id string) (string, error) {
+	result, err := driver.Cc.GetSecretKey(id)
+	if err != nil {
+		return "", err
+	}
+	return result, nil
+}
+
+// Create container
+func (driver *CcDriver) CreateSecretKey(name string) (uint, string, error) {
+	params := `{
+				"key_name": "%s"
+			}`
+	params = fmt.Sprintf(params, name)
+	id, name, err := driver.Cc.CreateSecretKey(params)
+	if err != nil {
+		return 0, "", err
+	}
+	return id, name, nil
+}
+
+// Restart container
+func (driver *CcDriver) DeleteSecretKey(id string) error {
+	err := driver.Cc.DeleteSecretKey(id)
 	if err != nil {
 		return err
 	}

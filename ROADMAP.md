@@ -34,10 +34,10 @@ This document describes some important features `comb` is going to realize.
 
 ## SecretKey
 
-- [ ] create secret key
-- [ ] get specified secret key file
-- [ ] list secret keys
-- [ ] delete secret key
+- [x] create secret key
+- [x] get specified secret key file
+- [x] list secret keys
+- [x] delete secret key
 
 ## feature
 
