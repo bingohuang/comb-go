@@ -52,7 +52,7 @@ func container(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Create container(%s) fail. %v", jsonParams, err)
 		}
-		fmt.Printf("Create Container(Id: %d) success.\n", id)
+		fmt.Printf("Create Container: %d\n", id)
 		return nil
 	}
 	containerId := c.Args()[0]

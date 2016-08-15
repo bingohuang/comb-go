@@ -88,7 +88,7 @@ func TestCreateContainer(t *testing.T) {
 
 func TestGetContainer(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	res, err := combCli("co", containerId)
 
@@ -99,7 +99,7 @@ func TestGetContainer(t *testing.T) {
 
 func TestGetContainerFlow(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	res, err := combCli("co", "-f", containerId)
 
@@ -110,7 +110,7 @@ func TestGetContainerFlow(t *testing.T) {
 
 func TestTagContainer(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	params := `{
 	  "repo_name": "%s",
@@ -128,7 +128,7 @@ func TestTagContainer(t *testing.T) {
 
 func TestUpdateContainer(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	params := `{
 	  "charge_type":%d,
@@ -148,7 +148,7 @@ func TestUpdateContainer(t *testing.T) {
 
 func TestRestartContainer(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	res, err := combCli("co", "-r", containerId)
 
@@ -159,11 +159,64 @@ func TestRestartContainer(t *testing.T) {
 
 func TestDeleteContainer(t *testing.T) {
 	containerId := os.Getenv("CC_CONTAINER_ID")
-	check(t, containerId != "", "failed to the container id")
+	check(t, containerId != "", "failed to get the container id")
 
 	res, err := combCli("co", "-d", containerId)
 
 	check(t, err == nil, fmt.Sprintf("failed to delete the container(id=%s)", containerId), err)
+	fmt.Printf("%s", string(res))
+	time.Sleep(time.Duration(time.Second))
+}
+
+func TestGetSecretKeys(t *testing.T) {
+	res, err := combCli("sk")
+
+	check(t, err == nil, "failed to get all secret keys by `comb sk`")
+	fmt.Printf("%s", string(res))
+	time.Sleep(time.Duration(time.Second))
+
+	res, err = combCli("sk", "-a")
+
+	check(t, err == nil, "failed to get all secret keys  by `comb sk -a`")
+	fmt.Printf("%s", string(res))
+	time.Sleep(time.Duration(time.Second))
+}
+
+func TestCreateSecretKey(t *testing.T) {
+	keyName := fmt.Sprint("test", "-", time.Now().Unix())
+	res, err := combCli("sk", "-c", keyName)
+
+	check(t, err == nil, "failed to create secret key", err)
+
+	resStr := string(res)
+	// substring the container id from "Container id: %d\n"
+	secretKeyId := resStr[strings.LastIndex(resStr, ":")+2 : len(resStr)-1]
+
+	os.Setenv("CC_SECRETKEY_ID", secretKeyId)
+	fmt.Printf("CC_SECRETKEY_ID=%s\n", os.Getenv("CC_SECRETKEY_ID"))
+
+	// waiting 60s for finish creating the container
+	time.Sleep(time.Duration(3 * time.Second))
+}
+
+func TestGetSecretKey(t *testing.T) {
+	secretKeyId := os.Getenv("CC_SECRETKEY_ID")
+	check(t, secretKeyId != "", "failed to get the secret key id")
+
+	res, err := combCli("sk", secretKeyId)
+
+	check(t, err == nil, fmt.Sprintf("failed to get the secret key(id=%s)", secretKeyId), err)
+	fmt.Printf("%s", string(res))
+	time.Sleep(time.Duration(time.Second))
+}
+
+func TestDeleteSecretKey(t *testing.T) {
+	secretKeyId := os.Getenv("CC_SECRETKEY_ID")
+	check(t, secretKeyId != "", "failed to get the secret key id")
+
+	res, err := combCli("sk", "-d", secretKeyId)
+
+	check(t, err == nil, fmt.Sprintf("failed to delete the secret key(id=%s)", secretKeyId), err)
 	fmt.Printf("%s", string(res))
 	time.Sleep(time.Duration(time.Second))
 }

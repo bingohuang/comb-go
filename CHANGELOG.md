@@ -3,6 +3,7 @@
 ## Version 1.1.0 (2016.08.15)
 
 1. add SecretKey commands
+2. add SecretKey test cases
 
 ## Version 1.0.2 (2016.08.08)
 

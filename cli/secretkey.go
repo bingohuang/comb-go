@@ -35,7 +35,7 @@ func secretKey(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("Create secret key(%s) fail. %v", keyName, err)
 		}
-		fmt.Printf("Create Secret key(Id: %d, Name: %s) success.\n", id, name)
+		fmt.Printf("Create Secret key Name: %s, Id: %d\n", name, id)
 		return nil
 	}
 
