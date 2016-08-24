@@ -3,6 +3,7 @@ package cc
 import "github.com/codegangsta/cli"
 
 // repository command TODO
-func repository(c *cli.Context) {
+func repository(c *cli.Context) error {
 
+	return nil
 }
