@@ -55,7 +55,7 @@ OPTIONS:
    -t  Tag container.
    -d  Delete container.
 ```
-你可以直接下载 `comb` 的可执行文件，将其配置到环境变量当中。当前主要支持三大平台64位操作系统，我打包编译后上传到了 `NOS`(网易对象存储)当中。32位平台如有需要可以[`联系我`](mailto:hzhuangqingbin@corp.netease.com)或者自行编译
+你可以直接下载 `comb` 的可执行文件，将其配置到环境变量当中。当前主要支持三大平台64位操作系统，我打包编译后上传到了 `NOS`(网易对象存储)当中。32位平台如有需要可以[`联系我`](mailto:me@bingohuang.com)或者自行编译
 
 - [x] [Mac 64](http://nos.126.net/comb/comb_darwin_amd64)
 - [x] [Linux 64](http://nos.126.net/comb/comb_linux_amd64)
